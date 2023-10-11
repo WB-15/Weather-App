@@ -1,9 +1,18 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const fetchLocations = createAsyncThunk("locations", async (value) => {
+  const GEODB_API_URL = process.env.GEODB_API_URL || "default_url";
+  const X_RapidAPI_Key = process.env.X_RapidAPI_Key || "default_api_key";
+  const X_RapidAPI_Host = process.env.X_RapidAPI_Host || "default_host";
   const res = await fetch(
-    `${process.env.GEODB_API_URL}/cities?minPopulation=10&namePrefix=${value}`,
-    process.env.geoDbOptions
+    `${GEODB_API_URL}/cities?minPopulation=10&namePrefix=${value}`,
+    {
+      method: "GET",
+      headers: {
+        "X-RapidAPI-Key": X_RapidAPI_Key,
+        "X-RapidAPI-Host": X_RapidAPI_Host,
+      },
+    }
   );
   const data = await res.json();
   return data.data;

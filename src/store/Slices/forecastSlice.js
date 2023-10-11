@@ -1,9 +1,15 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { STATUSES } from "./locationSlice";
+
 export const fetchForcast = createAsyncThunk("forecast", async (value) => {
   const { lat, lon } = value;
+  const OPEN_WEATHER_API_URL =
+    process.env.OPEN_WEATHER_API_URL || "default_key";
+  const OPEN_WEATHER_API_KEY =
+    process.env.OPEN_WEATHER_API_KEY || "default_key";
+
   const res = await fetch(
-    `${process.env.OPEN_WEATHER_API_URL}/forecast?lat=${lat}&lon=${lon}&appid=${process.env.OPEN_WEATHER_API_KEY}&units=metric`
+    `${OPEN_WEATHER_API_URL}/forecast?lat=${lat}&lon=${lon}&appid=${OPEN_WEATHER_API_KEY}&units=metric`
   );
   const data = res.json();
   return data;

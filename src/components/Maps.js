@@ -6,8 +6,10 @@ import { useSelector } from "react-redux";
 const Maps = () => {
   const locationData = useSelector((state) => state.map);
   const position = [locationData[0].lat, locationData[0].lon];
+  const OPEN_WEATHER_API_KEY =
+    process.env.OPEN_WEATHER_API_KEY || "default_key";
 
-  const url = `https://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=${process.env.OPEN_WEATHER_API_KEY}`;
+  const url = `https://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=${OPEN_WEATHER_API_KEY}`;
 
   const icon = new Icon({
     iconUrl: require("../assets/placeholder.png"),
